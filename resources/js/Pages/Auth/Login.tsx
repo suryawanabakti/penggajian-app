@@ -122,7 +122,7 @@ export default function Login({
                                 </div>
                             </form>
                             <div className="text-center text-muted mt-3">
-                                Made with ☕ by SuryaWanaBakti.
+                                Made with 🤎 by Serlina.
                             </div>
                         </div>
                     </div>
@@ -131,8 +131,7 @@ export default function Login({
                         <div
                             className="bg-cover h-100 min-vh-100"
                             style={{
-                                backgroundImage:
-                                    "url(/static/photos/finances-us-dollars-and-bitcoins-currency-money-2.jpg)",
+                                backgroundImage: "url(/static/unitama.jpg)",
                             }}
                         />
                     </div>

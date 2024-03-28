@@ -57,7 +57,7 @@ export default function Index({ auth, users }: any) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users.map((data: any) => {
+                                    {users.data.map((data: any) => {
                                         return (
                                             <tr>
                                                 <td>{data.name}</td>
@@ -70,7 +70,7 @@ export default function Index({ auth, users }: any) {
                                                             data-bs-toggle="dropdown"
                                                             aria-expanded="false"
                                                         >
-                                                            Actions
+                                                            Aksi
                                                         </button>
                                                         <ul className="dropdown-menu">
                                                             <li>

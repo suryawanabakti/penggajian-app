@@ -3,10 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CreatedSuccessfully extends Notification
+class UpdatedSuccessfully extends Notification
 {
     use Queueable;
 
@@ -48,7 +49,7 @@ class CreatedSuccessfully extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'data' =>  $this->name . 'Gaji anda telah di tambah'
+            'data' =>  $this->name . 'Gaji anda telah di update'
         ];
     }
 }

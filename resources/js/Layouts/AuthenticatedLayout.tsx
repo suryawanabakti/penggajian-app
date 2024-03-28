@@ -54,6 +54,7 @@ export default function Authenticated({
                     setCollapseSecondNavbar={setCollapseSecondNavbar}
                 />
                 <SecondNavbar
+                    user={user}
                     showCollapseSecondNavbar={showCollapseSecondNavbar}
                 />
                 <div className="page-wrapper">

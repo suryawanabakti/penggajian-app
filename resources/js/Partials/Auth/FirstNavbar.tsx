@@ -24,7 +24,10 @@ export default function FirstNavbar({
                 </button>
                 <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <Link href="/dashboard">
-                        <ApplicationLogo />
+                        <div className="d-flex justify-content-between">
+                            <ApplicationLogo width="30" />{" "}
+                            <span className="mt-1 fw-bold ml-2">UNITAMA</span>
+                        </div>
                     </Link>
                 </h1>
                 <div className="navbar-nav flex-row order-md-last">
@@ -49,20 +52,16 @@ export default function FirstNavbar({
                             <div className="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
                                 <div className="card">
                                     <div className="card-header">
-                                        <h3 className="card-title d-flex justify-content-between w-100">
+                                        <h3 className="card-title d-flex justify-content-between w-80">
                                             Notifications
-                                            {user.limitnotification > 0 && (
-                                                <Link
-                                                    href="/notifications/mark-all-as-read"
-                                                    method="post"
-                                                    as="button"
-                                                    className="text-primary"
-                                                >
-                                                    <small>
-                                                        Mark All As Read
-                                                    </small>
-                                                </Link>
-                                            )}
+                                            <Link
+                                                href="/notifications/mark-all-as-read"
+                                                method="post"
+                                                as="button"
+                                                className="text-primary"
+                                            >
+                                                <small>Mark All As Read</small>
+                                            </Link>
                                         </h3>
                                     </div>
                                     <div className="list-group list-group-flush list-group-hoverable">
@@ -138,8 +137,7 @@ export default function FirstNavbar({
                             <span
                                 className="avatar avatar-sm"
                                 style={{
-                                    backgroundImage:
-                                        "url(/static/avatars/000m.jpg)",
+                                    backgroundImage: `url(https://ui-avatars.com/api/?name=${user.name})`,
                                 }}
                             />
                             <div className="d-none d-xl-block ps-2">

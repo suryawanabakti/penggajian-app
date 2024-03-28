@@ -25,6 +25,9 @@
     },
     "dependencies": {
         "@tabler/icons-react": "^2.42.0",
-        "react-hot-toast": "^2.4.1"
+        "@types/react-js-pagination": "^3.0.7",
+        "react-hot-toast": "^2.4.1",
+        "react-js-pagination": "^3.0.3",
+        "react-number-format": "^5.3.4"
     }
 }

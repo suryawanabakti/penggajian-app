@@ -1,13 +1,76 @@
 import TextInput from "@/Components/TextInput";
 import { Link, useForm } from "@inertiajs/react";
-import { IconHome, IconSearch, IconUsers } from "@tabler/icons-react";
+import {
+    IconCash,
+    IconHome,
+    IconMedal,
+    IconSearch,
+    IconUsers,
+} from "@tabler/icons-react";
 import { FormEventHandler } from "react";
 
 export default function SecondNavbar({
+    user,
     showCollapseSecondNavbar,
 }: {
+    user: any;
     showCollapseSecondNavbar: boolean;
 }) {
+    let links;
+    if (user.roles[0].name == "admin") {
+        links = (
+            <>
+                <li
+                    className={`nav-item ${
+                        route().current("admin.positions*") ? "active" : ""
+                    }`}
+                >
+                    <Link className="nav-link" href="/admin/positions">
+                        <span className="nav-link-icon d-md-none d-lg-inline-block">
+                            <IconMedal
+                                className="icon"
+                                size={24}
+                                strokeWidth={2}
+                            />
+                        </span>
+                        <span className="nav-link-title">Jabatan</span>
+                    </Link>
+                </li>
+                <li
+                    className={`nav-item ${
+                        route().current("admin.employees*") ? "active" : ""
+                    }`}
+                >
+                    <Link className="nav-link" href="/admin/employees">
+                        <span className="nav-link-icon d-md-none d-lg-inline-block">
+                            <IconUsers
+                                className="icon"
+                                size={24}
+                                strokeWidth={2}
+                            />
+                        </span>
+                        <span className="nav-link-title">Pegawai</span>
+                    </Link>
+                </li>
+                <li
+                    className={`nav-item ${
+                        route().current("admin.salaries*") ? "active" : ""
+                    }`}
+                >
+                    <Link className="nav-link" href="/admin/salaries">
+                        <span className="nav-link-icon d-md-none d-lg-inline-block">
+                            <IconCash
+                                className="icon"
+                                size={24}
+                                strokeWidth={2}
+                            />
+                        </span>
+                        <span className="nav-link-title">Penggajian</span>
+                    </Link>
+                </li>
+            </>
+        );
+    }
     const { data, setData, get, processing } = useForm({
         search: "",
     });
@@ -31,13 +94,12 @@ export default function SecondNavbar({
                         <ul className="navbar-nav">
                             <li
                                 className={`nav-item ${
-                                    route().current("dashboard") ? "active" : ""
+                                    route().current("*dashboard")
+                                        ? "active"
+                                        : ""
                                 }`}
                             >
-                                <Link
-                                    className="nav-link"
-                                    href="/admin/dashboard"
-                                >
+                                <Link className="nav-link" href="/dashboard">
                                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                                         <IconHome
                                             className="icon"
@@ -48,26 +110,7 @@ export default function SecondNavbar({
                                     <span className="nav-link-title">Home</span>
                                 </Link>
                             </li>
-                            <li
-                                className={`nav-item ${
-                                    route().current("admin.users*")
-                                        ? "active"
-                                        : ""
-                                }`}
-                            >
-                                <Link className="nav-link" href="/admin/users">
-                                    <span className="nav-link-icon d-md-none d-lg-inline-block">
-                                        <IconUsers
-                                            className="icon"
-                                            size={24}
-                                            strokeWidth={2}
-                                        />
-                                    </span>
-                                    <span className="nav-link-title">
-                                        Users
-                                    </span>
-                                </Link>
-                            </li>
+                            {links}
                         </ul>
                         <div className="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
                             <form onSubmit={handleSearch} autoComplete="off">

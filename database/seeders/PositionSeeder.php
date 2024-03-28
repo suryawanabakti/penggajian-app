@@ -2,22 +2,23 @@
 
 namespace Database\Seeders;
 
+use App\Models\Position;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class PositionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $user = \App\Models\User::create([
-            'name' => 'Admin',
-            'email' => 'serlina@admin',
-            'password' => bcrypt('password'),
+        Position::create([
+            'name' => 'Dosen',
         ]);
 
-        $user->assignRole("admin");
+        Position::create([
+            'name' => 'BAUK',
+        ]);
     }
 }
