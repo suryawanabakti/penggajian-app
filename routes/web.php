@@ -13,6 +13,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
 
 
 /*
@@ -86,6 +87,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/salaries', [AdminSalaryController::class, 'index'])->name('admin.salaries.index');
         Route::get('/admin/salaries/employee/{employee}/date-of-salary/{dateOfSalary}', [AdminSalaryController::class, 'show'])->name('admin.salaries.show');
         Route::post('/admin/salaries/employee/{employee}/date-of-salary/{dateOfSalary}', [AdminSalaryController::class, 'store'])->name('admin.salaries.store');
+
+        Route::get('/admin/reports', [AdminReportController::class, 'index'])->name('admin.reports.index');
     });
 });
 

@@ -71,9 +71,11 @@ class SalaryController extends Controller
         if ($salary->count() == 0) {
             Salary::create($validatedData);
             $user->notify(new CreatedSuccessfully($user->name));
+            Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *ditambahkan*");
         } else {
             $salary->update($validatedData);
             $user->notify(new UpdatedSuccessfully($user->name));
+            Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *diupdate*");
         }
 
         return back();

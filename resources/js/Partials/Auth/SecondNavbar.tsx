@@ -2,6 +2,7 @@ import TextInput from "@/Components/TextInput";
 import { Link, useForm } from "@inertiajs/react";
 import {
     IconCash,
+    IconFileSpreadsheet,
     IconHome,
     IconMedal,
     IconSearch,
@@ -66,6 +67,22 @@ export default function SecondNavbar({
                             />
                         </span>
                         <span className="nav-link-title">Penggajian</span>
+                    </Link>
+                </li>
+                <li
+                    className={`nav-item ${
+                        route().current("admin.reports*") ? "active" : ""
+                    }`}
+                >
+                    <Link className="nav-link" href="/admin/reports">
+                        <span className="nav-link-icon d-md-none d-lg-inline-block">
+                            <IconFileSpreadsheet
+                                className="icon"
+                                size={24}
+                                strokeWidth={2}
+                            />
+                        </span>
+                        <span className="nav-link-title">Laporan</span>
                     </Link>
                 </li>
             </>
