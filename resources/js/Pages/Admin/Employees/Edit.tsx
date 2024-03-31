@@ -3,6 +3,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
 
 export default function Edit({ auth, positions, employee }: any) {
     const { data, setData, put, errors, processing } = useForm({
@@ -14,9 +15,13 @@ export default function Edit({ auth, positions, employee }: any) {
         alamat: employee.address,
         waktu_bekerja: employee.start_working,
         nomor_handphone: employee.phone,
+        nidn: employee.nidn,
+        nik: employee.nik,
+        jenis_kelamin: employee.user.gender,
     });
 
     const handleChange = (e: any) => {
+        console.log(e.target.value);
         e.preventDefault();
         setData(e.target.name, e.target.value);
     };
@@ -61,6 +66,88 @@ export default function Edit({ auth, positions, employee }: any) {
                                     <InputError
                                         className="mt-2"
                                         message={errors.nama}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <InputLabel htmlFor="" value="NIK" />
+
+                                    <TextInput
+                                        id="nik"
+                                        className=""
+                                        value={data.nik}
+                                        required
+                                        isFocused
+                                        autoComplete="nik"
+                                        name="nik"
+                                        onChange={handleChange}
+                                        placeholder="...."
+                                    />
+
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.nik}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <InputLabel htmlFor="" value="NIDN" />
+
+                                    <TextInput
+                                        id="nidn"
+                                        className=""
+                                        value={data.nidn}
+                                        isFocused
+                                        autoComplete="nidn"
+                                        name="nidn"
+                                        onChange={handleChange}
+                                        placeholder="...."
+                                    />
+
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.nidn}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <div className="form-label">
+                                        Jenis Kelamin
+                                    </div>
+                                    <div>
+                                        <label className="form-check form-check-inline">
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value={"male"}
+                                                checked={
+                                                    data.jenis_kelamin ===
+                                                    "male"
+                                                }
+                                                name="jenis_kelamin"
+                                                onChange={handleChange}
+                                            />
+                                            <span className="form-check-label">
+                                                Laki-laki
+                                            </span>
+                                        </label>
+                                        <label className="form-check form-check-inline">
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                name="jenis_kelamin"
+                                                value={"female"}
+                                                checked={
+                                                    data.jenis_kelamin ===
+                                                    "female"
+                                                }
+                                                onChange={handleChange}
+                                            />
+                                            <span className="form-check-label">
+                                                Perempuan
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.jenis_kelamin}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -136,7 +223,7 @@ export default function Edit({ auth, positions, employee }: any) {
 
                                     <InputError
                                         className="mt-2"
-                                        message={errors.alamat}
+                                        message={errors.waktu_bekerja}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -157,7 +244,7 @@ export default function Edit({ auth, positions, employee }: any) {
 
                                     <InputError
                                         className="mt-2"
-                                        message={errors.alamat}
+                                        message={errors.nomor_handphone}
                                     />
                                 </div>
                                 <div className="mb-3">

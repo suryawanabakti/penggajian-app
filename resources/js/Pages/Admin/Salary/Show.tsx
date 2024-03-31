@@ -25,13 +25,23 @@ export default function Index({
     const { flash }: any = usePage().props;
     const { data, setData, post, errors, processing } = useForm({
         gaji_pokok: salary?.gaji_pokok,
+        tunjangan_jabatan: salary?.tunjangan_jabatan,
+        tunjangan_keluarga: salary?.tunjangan_keluarga,
+        tunjangan_khusus: salary?.tunjangan_khusus,
+        tunjangan_lembur_dan_makan: salary?.tunjangan_lembur_dan_makan,
+        tunjangan_kelebihan_mengajar: salary?.tunjangan_kelebihan_mengajar,
+        tunjangan_kesra: salary?.tunjangan_kesra,
+        potongan_pph21: salary?.potongan_pph21,
+        potongan_pinjaman_koperasi: salary?.potongan_pinjaman_koperasi,
+        potongan_sumbangan_kyy: salary?.potongan_sumbangan_kyy,
+        potongan_simpanan_wajib: salary?.potongan_simpanan_wajib,
+        potongan_bpjs_kesehatan_dan_tenagakerjaan:
+            salary?.potongan_bpjs_kesehatan_dan_tenagakerjaan,
+        potongan_arisan: salary?.potongan_arisan,
+        potongan_dll: salary?.potongan_dll,
         tunjangan: salary?.tunjangan,
-        pph21: salary?.pph21,
-        arisan: salary?.arisan,
-        kelebihan: salary?.kelebihan,
-        lembur: salary?.lembur,
-        makan: salary?.makan,
-        kesra: salary?.kesra,
+        potongan: salary?.potongan,
+        total: salary?.total,
     });
     const [show, setShow] = useState(true);
     const dropdown = <Link href="/admin/salaries">Kembali</Link>;
@@ -154,126 +164,237 @@ export default function Index({
                                 </div>
                                 <div className="mb-3">
                                     <label
-                                        htmlFor="tunjangan"
+                                        htmlFor="tunjangan_jabatan"
                                         className="form-label"
                                     >
-                                        Tunjangan
+                                        Tunjangan Jabatan
                                     </label>
                                     <NumericFormat
-                                        id="tunjangan"
-                                        name="tunjangan"
+                                        name="tunjangan_jabatan"
                                         onChange={handleChange}
                                         className="form-control"
-                                        value={data.tunjangan}
+                                        value={data.tunjangan_jabatan}
                                         allowLeadingZeros
                                         thousandSeparator=","
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label
-                                        htmlFor="pph21"
+                                        htmlFor="tunjangan_keluarga"
                                         className="form-label"
                                     >
-                                        PPH 21
+                                        Tunjangan Keluarga
                                     </label>
                                     <NumericFormat
-                                        id="pph21"
-                                        name="pph21"
+                                        id="tunjangan_keluarga"
+                                        name="tunjangan_keluarga"
                                         onChange={handleChange}
                                         className="form-control"
-                                        value={data.pph21}
+                                        value={data.tunjangan_keluarga}
                                         allowLeadingZeros
                                         thousandSeparator=","
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label
-                                        htmlFor="arisan"
+                                        htmlFor="tunjangan_khusus"
                                         className="form-label"
                                     >
-                                        Arisan
+                                        Tunjangan Khusus
                                     </label>
                                     <NumericFormat
-                                        id="arisan"
-                                        name="arisan"
+                                        id="tunjangan_khusus"
+                                        name="tunjangan_khusus"
                                         onChange={handleChange}
                                         className="form-control"
-                                        value={data.arisan}
+                                        value={data.tunjangan_khusus}
                                         allowLeadingZeros
                                         thousandSeparator=","
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label
-                                        htmlFor="kelebihan"
+                                        htmlFor="tunjangan_lembur_dan_makan"
                                         className="form-label"
                                     >
-                                        Kelebihan
+                                        Tunjangan lembur & makan
                                     </label>
                                     <NumericFormat
-                                        id="kelebihan"
-                                        name="kelebihan"
+                                        id="tunjangan_lembur_dan_makan"
+                                        name="tunjangan_lembur_dan_makan"
                                         onChange={handleChange}
                                         className="form-control"
-                                        value={data.kelebihan}
+                                        value={data.tunjangan_lembur_dan_makan}
                                         allowLeadingZeros
                                         thousandSeparator=","
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label
-                                        htmlFor="arisan"
+                                        htmlFor="tunjangan_kelebihan_mengajar"
                                         className="form-label"
                                     >
-                                        Lembur
+                                        Tunjangan kelebihan mengajar
                                     </label>
                                     <NumericFormat
-                                        id="lembur"
-                                        name="lembur"
+                                        id="tunjangan_kelebihan_mengajar"
+                                        name="tunjangan_kelebihan_mengajar"
                                         onChange={handleChange}
                                         className="form-control"
-                                        value={data.lembur}
+                                        value={
+                                            data.tunjangan_kelebihan_mengajar
+                                        }
                                         allowLeadingZeros
                                         thousandSeparator=","
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label
-                                        htmlFor="arisan"
+                                        htmlFor="tunjangan_kesra"
                                         className="form-label"
                                     >
-                                        Uang Makan
+                                        Tunjangan Kesra
                                     </label>
                                     <NumericFormat
-                                        id="makan"
-                                        name="makan"
+                                        id="tunjangan_kesra"
+                                        name="tunjangan_kesra"
                                         onChange={handleChange}
                                         className="form-control"
-                                        value={data.makan}
+                                        value={data.tunjangan_kesra}
+                                        allowLeadingZeros
+                                        thousandSeparator=","
+                                    />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="potongan_pph21"
+                                        className="form-label"
+                                    >
+                                        Potongan PPH21
+                                    </label>
+                                    <NumericFormat
+                                        id="potongan_pph21"
+                                        name="potongan_pph21"
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        value={data.potongan_pph21}
                                         allowLeadingZeros
                                         thousandSeparator=","
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label
-                                        htmlFor="kesra"
+                                        htmlFor="potongan_pinjaman_koperasi"
                                         className="form-label"
                                     >
-                                        Kesra
+                                        Potongan pinjaman koperasi
                                     </label>
                                     <NumericFormat
-                                        id="kesra"
-                                        name="kesra"
+                                        id="potongan_pinjaman_koperasi"
+                                        name="potongan_pinjaman_koperasi"
                                         onChange={handleChange}
                                         className="form-control"
-                                        value={data.kesra}
+                                        value={data.potongan_pinjaman_koperasi}
+                                        allowLeadingZeros
+                                        thousandSeparator=","
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="potongan_sumbangan_kyy"
+                                        className="form-label"
+                                    >
+                                        Potongan sumbangan KYY
+                                    </label>
+                                    <NumericFormat
+                                        id="potongan_sumbangan_kyy"
+                                        name="potongan_sumbangan_kyy"
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        value={data.potongan_sumbangan_kyy}
+                                        allowLeadingZeros
+                                        thousandSeparator=","
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="potongan_simpanan_wajib"
+                                        className="form-label"
+                                    >
+                                        Potongan simpanan wajib
+                                    </label>
+                                    <NumericFormat
+                                        id="potongan_simpanan_wajib"
+                                        name="potongan_simpanan_wajib"
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        value={data.potongan_simpanan_wajib}
+                                        allowLeadingZeros
+                                        thousandSeparator=","
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="potongan_bpjs_kesehatan_dan_tenagakerjaan"
+                                        className="form-label"
+                                    >
+                                        Potongan BPJS kesehatan dan
+                                        tenagakerjaan
+                                    </label>
+                                    <NumericFormat
+                                        id="potongan_bpjs_kesehatan_dan_tenagakerjaan"
+                                        name="potongan_bpjs_kesehatan_dan_tenagakerjaan"
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        value={
+                                            data.potongan_bpjs_kesehatan_dan_tenagakerjaan
+                                        }
+                                        allowLeadingZeros
+                                        thousandSeparator=","
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="potongan_arisan"
+                                        className="form-label"
+                                    >
+                                        Potongan Arisan
+                                    </label>
+                                    <NumericFormat
+                                        id="potongan_arisan"
+                                        name="potongan_arisan"
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        value={data.potongan_arisan}
+                                        allowLeadingZeros
+                                        thousandSeparator=","
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="potongan_dll"
+                                        className="form-label"
+                                    >
+                                        Potongan Dan Lain-lain
+                                    </label>
+                                    <NumericFormat
+                                        id="potongan_dll"
+                                        name="potongan_dll"
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        value={data.potongan_dll}
                                         allowLeadingZeros
                                         thousandSeparator=","
                                     />
                                 </div>
                             </div>
                             <div className="card-footer d-flex justify-content-between">
-                                <button className="btn btn-primary">
+                                <button
+                                    className={`btn btn-primary ${
+                                        processing ? "btn-loading" : ""
+                                    }`}
+                                >
                                     Simpan
                                 </button>
                             </div>

@@ -48,46 +48,53 @@ export default function Index({
                                 <option value="2021">2021</option>
                             </select>
                         </div>
-                        <table className="table card-table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Jabatan</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {employees.map((data: any) => {
-                                    return (
-                                        <tr>
-                                            <td>{data.nama}</td>
-                                            <td>{data.jabatan}</td>
-                                            <td>
-                                                {!data.salary ? (
-                                                    <span className="badge bg-warning">
-                                                        Belum dapat gaji bulan
-                                                        ini
-                                                    </span>
-                                                ) : (
-                                                    <span className="badge bg-success">
-                                                        Sudah dapat gaji
-                                                    </span>
-                                                )}
-                                            </td>
-                                            <td>
-                                                <Link
-                                                    className="btn btn-icon btn-sm"
-                                                    href={`/admin/salaries/employee/${data.id}/date-of-salary/${dateOfSalary}`}
-                                                >
-                                                    <IconSend className="icon" />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
+                        <div className="table-responsive">
+                            <table className="table card-table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Jabatan</th>
+                                        <th>Status Keterangan Gaji</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {employees.map((data: any) => {
+                                        return (
+                                            <tr>
+                                                <td>{data.nama}</td>
+                                                <td>{data.jabatan}</td>
+                                                <td>
+                                                    {!data.salary ? (
+                                                        <span className="badge bg-warning">
+                                                            Belum dapat gaji
+                                                            bulan ini
+                                                        </span>
+                                                    ) : (
+                                                        <span className="badge bg-success">
+                                                            Telah dapat gaji
+                                                            pada tanggal{" "}
+                                                            {
+                                                                data.salary
+                                                                    .tanggal
+                                                            }
+                                                        </span>
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <Link
+                                                        className="btn btn-icon btn-sm"
+                                                        href={`/admin/salaries/employee/${data.id}/date-of-salary/${dateOfSalary}`}
+                                                    >
+                                                        <IconSend className="icon" />
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

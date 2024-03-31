@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
-
+use App\Models\Employee;
+use App\Models\Salary;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/admin/dashboard', function () {
-    return Inertia::render('Dashboard');
+
+    $sudahGajianBulanIni = Salary::whereMonth('tanggal', now())->whereYear('tanggal', now())->count();
+    return Inertia::render('Dashboard', [
+        "jumlahKaryawan" => Employee::count(),
+        "sudahGajianBulanIni" => $sudahGajianBulanIni,
+        "belumGajianBulanIni" => Employee::count() - $sudahGajianBulanIni,
+    ]);
 })->middleware(['auth', 'verified', 'role:admin'])->name('admin.dashboard');
 
 Route::get('/user/dashboard', function () {
@@ -89,6 +96,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/salaries/employee/{employee}/date-of-salary/{dateOfSalary}', [AdminSalaryController::class, 'store'])->name('admin.salaries.store');
 
         Route::get('/admin/reports', [AdminReportController::class, 'index'])->name('admin.reports.index');
+        Route::get('/admin/reports/show', [AdminReportController::class, 'show'])->name('admin.reports.show');
+
+        Route::get('/admin/reports/{salary}/export', [AdminReportController::class, 'export'])->name('admin.reports.export');
+
+        Route::get('/admin/reports/exports', [AdminReportController::class, 'exports'])->name('admin.reports.export');
     });
 });
 

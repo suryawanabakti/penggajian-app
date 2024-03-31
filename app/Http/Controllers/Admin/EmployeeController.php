@@ -43,7 +43,10 @@ class EmployeeController extends Controller
             'jabatan' => 'required',
             'alamat' => 'required',
             'nomor_handphone' => 'required',
-            'waktu_bekerja' => 'required'
+            'waktu_bekerja' => 'required',
+            'jenis_kelamin' => 'required',
+            'nik' => ['required', 'nullable', 'numeric', 'unique:employees'],
+            'nidn' => ['nullable', 'unique:employees']
         ]);
 
         $user = User::create([
@@ -55,10 +58,13 @@ class EmployeeController extends Controller
         try {
             Employee::create([
                 'user_id' => $user->id,
+                'nik' => $request->nik,
+                'nidn' => $request->nidn,
                 'position_id' => $request->jabatan,
                 'address' => $request->alamat,
                 'phone' => $request->nomor_handphone,
-                'start_working' => $request->waktu_bekerja
+                'start_working' => $request->waktu_bekerja,
+                'gender' => $request->jenis_kelamin,
             ]);
         } catch (Exception $e) {
             $user->delete();
@@ -83,17 +89,21 @@ class EmployeeController extends Controller
     {
         $request->validate([
             'nama' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|unique:users,email,' . $employee->user->id,
             'jabatan' => 'required',
             'alamat' => 'required',
             'nomor_handphone' => 'required',
-            'waktu_bekerja' => 'required'
+            'waktu_bekerja' => 'required',
+            'jenis_kelamin' => 'required',
+            'nik' => ['nullable', 'numeric', 'unique:employees,nik,' . $employee->id],
+            'nidn' => ['nullable', 'unique:employees,nidn,' . $employee->id]
         ]);
 
         User::where('id', $employee->user_id)->update([
             'name' => $request->nama,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'gender' => $request->jenis_kelamin
         ]);
         if ($request->password) {
             $request->validate([
@@ -108,7 +118,9 @@ class EmployeeController extends Controller
             'position_id' => $request->jabatan,
             'address' => $request->alamat,
             'phone' => $request->nomor_handphone,
-            'start_working' => $request->waktu_bekerja
+            'start_working' => $request->waktu_bekerja,
+            'nik' => $request->nik,
+            'nidn' => $request->nidn,
         ]);
 
         Controller::sendWa($employee->phone, "Hi {$employee->user->name}.\nAkun penggajian anda telah di update oleh Admin UNITAMA 😁 \n");

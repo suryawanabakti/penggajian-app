@@ -22,11 +22,18 @@ class SalaryController extends Controller
 
         $employees = Employee::all()->map(function ($employee) use ($month, $year) {
             $salary = Salary::whereMonth('tanggal', $month)->whereYear('tanggal', $year)->where('employee_id', $employee->id)->first();
+            if (!empty($salary)) {
+                $data = [
+                    "id" => $salary->id,
+                    "tanggal" => Carbon::createFromDate($salary->tanggal)->format('d M Y H:i'),
+                ];
+            }
+
             return [
                 "id" => $employee->id,
                 "nama" => $employee->user->name,
                 "jabatan" => $employee->position->name,
-                "salary" => $salary
+                "salary" => $data ?? null
             ];
         });
 
@@ -49,18 +56,26 @@ class SalaryController extends Controller
 
         $validatedData = $request->validate([
             'gaji_pokok' => ['required', 'numeric'],
-            'tunjangan' => ['required', 'numeric'],
-            'pph21' => ['required', 'numeric'],
-            'arisan' => ['required', 'numeric'],
-            'kelebihan' => ['required', 'numeric'],
-            'lembur' => ['required', 'numeric'],
-            'makan' => ['required', 'numeric'],
-            'kesra' => ['required', 'numeric'],
+            'tunjangan_jabatan' => ['required', 'numeric'],
+            'tunjangan_keluarga' => ['required', 'numeric'],
+            'tunjangan_khusus' => ['required', 'numeric'],
+            'tunjangan_lembur_dan_makan' => ['required', 'numeric'],
+            'tunjangan_kelebihan_mengajar' => ['required', 'numeric'],
+            'tunjangan_kesra' => ['required', 'numeric'],
+            'potongan_pph21' => ['required', 'numeric'],
+            'potongan_pinjaman_koperasi' => ['required', 'numeric'],
+            'potongan_sumbangan_kyy' => ['required', 'numeric'],
+            'potongan_simpanan_wajib' => ['required', 'numeric'],
+            'potongan_bpjs_kesehatan_dan_tenagakerjaan' => ['required', 'numeric'],
+            'potongan_arisan' => ['required', 'numeric'],
+            'potongan_dll' => ['required', 'numeric'],
         ]);
-        $pendapatan = $request->gaji_pokok + $request->tunjangan + $request->kelebihan;
-        $potongan = $request->pph21 + $request->arisan + $request->lembur + $request->makan + $request->kesra;
 
-        $validatedData['total'] = $pendapatan - $potongan;
+        $validatedData['tunjangan'] = $request->tunjangan_jabatan + $request->tunjangan_keluarga + $request->tunjangan_khusus + $request->tunjangan_lembur_dan_makan + $request->tunjangan_kelebihan_mengajar + $request->tunjangan_kesra;
+
+        $validatedData['potongan'] = (int)$request->potongan_pph21 + (int) $request->potongan_pinjaman_koperasi + (int) $request->potongan_sumbangan_kyy + (int)$request->potongan_simpanan_wajib + (int)$request->potongan_bpjs_kesehatan_dan_tenagakerjaan + (int)$request->potongan_arisan + (int) $request->potongan_dll;
+
+        $validatedData['total'] = ($validatedData['gaji_pokok'] + $validatedData['tunjangan']) - $validatedData['potongan'];
         $validatedData['employee_id'] = $employee->id;
         $validatedData['tanggal'] = $dateOfSalary;
 
@@ -72,12 +87,18 @@ class SalaryController extends Controller
             Salary::create($validatedData);
             $user->notify(new CreatedSuccessfully($user->name));
             Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *ditambahkan*");
+            $message = "Berhasil menambah gaji bulan $month / $year";
         } else {
             $salary->update($validatedData);
             $user->notify(new UpdatedSuccessfully($user->name));
             Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *diupdate*");
+            $message = "Berhasil mengupdate gaji bulan $month / $year";
         }
 
-        return back();
+        return redirect('/admin/salaries')->with('message', [
+            'message' => $message,
+            'data' => $employee->user,
+            'status' => 'success'
+        ]);
     }
 }

@@ -39,7 +39,7 @@ export default function Login({
             <Head title="Log in" />
             <div className="d-flex flex-column bg-white">
                 <div className="row g-0 flex-fill">
-                    <div className="col-12 col-lg-6 col-xl-4 border-top-wide border-danger d-flex flex-column justify-content-center">
+                    <div className="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
                         <div className="container container-tight my-5 px-lg-5">
                             {status && (
                                 <div className="mb-3 text-sm text-success">
@@ -122,7 +122,14 @@ export default function Login({
                                 </div>
                             </form>
                             <div className="text-center text-muted mt-3">
-                                Made with 🤎 by Serlina.
+                                Made with ❤️ by{" "}
+                                <a
+                                    href="https://www.instagram.com/syerll_s/"
+                                    target="_blank"
+                                >
+                                    Serlina
+                                </a>
+                                .
                             </div>
                         </div>
                     </div>

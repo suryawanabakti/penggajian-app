@@ -14,6 +14,9 @@ export default function Create({ auth, positions }: any) {
         alamat: "",
         waktu_bekerja: "",
         nomor_handphone: "",
+        nik: "",
+        nidn: "",
+        jenis_kelamin: "",
     });
 
     const handleChange = (e: any) => {
@@ -61,6 +64,80 @@ export default function Create({ auth, positions }: any) {
                                     <InputError
                                         className="mt-2"
                                         message={errors.nama}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <InputLabel htmlFor="" value="NIK" />
+
+                                    <TextInput
+                                        id="nik"
+                                        className=""
+                                        value={data.nik}
+                                        required
+                                        isFocused
+                                        autoComplete="nik"
+                                        name="nik"
+                                        onChange={handleChange}
+                                        placeholder="...."
+                                    />
+
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.nik}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <InputLabel htmlFor="" value="NIDN" />
+
+                                    <TextInput
+                                        id="nidn"
+                                        className=""
+                                        value={data.nidn}
+                                        isFocused
+                                        autoComplete="nidn"
+                                        name="nidn"
+                                        onChange={handleChange}
+                                        placeholder="...."
+                                    />
+
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.nidn}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <div className="form-label">
+                                        Jenis Kelamin
+                                    </div>
+                                    <div>
+                                        <label className="form-check form-check-inline">
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                value={"male"}
+                                                name="jenis_kelamin"
+                                                onClick={handleChange}
+                                            />
+                                            <span className="form-check-label">
+                                                Laki-laki
+                                            </span>
+                                        </label>
+                                        <label className="form-check form-check-inline">
+                                            <input
+                                                className="form-check-input"
+                                                type="radio"
+                                                name="jenis_kelamin"
+                                                value={"female"}
+                                                onClick={handleChange}
+                                            />
+                                            <span className="form-check-label">
+                                                Perempuan
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.jenis_kelamin}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -118,7 +195,7 @@ export default function Create({ auth, positions }: any) {
                                 <div className="mb-3">
                                     <InputLabel
                                         htmlFor="waktu_bekerja"
-                                        value="Waktu Bekerja"
+                                        value="Mulai bekerja"
                                     />
 
                                     <TextInput

@@ -7,11 +7,6 @@ import LinkHead from "@/Partials/Auth/LinkHead";
 import ScriptBody from "@/Partials/Auth/ScriptBody";
 import { Link, usePage } from "@inertiajs/react";
 import toast, { Toaster } from "react-hot-toast";
-import {
-    IconBoxAlignBottom,
-    IconCaretDown,
-    IconDropletDown,
-} from "@tabler/icons-react";
 
 export default function Authenticated({
     user,
