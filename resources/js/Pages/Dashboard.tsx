@@ -1,14 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage } from "@inertiajs/react";
-import { PageProps } from "@/types";
-import {
-    IconAward,
-    IconExchange,
-    IconExchangeOff,
-    IconMan,
-    IconMoneybag,
-    IconUsers,
-} from "@tabler/icons-react";
+import { Head } from "@inertiajs/react";
+
+import { IconMoneybag, IconUsers } from "@tabler/icons-react";
 import Chart from "react-apexcharts";
 import { useState } from "react";
 
