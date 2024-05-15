@@ -3,7 +3,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
-
+import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
 export default function Edit({ auth, position }: any) {
     const { data, setData, put, errors, processing } = useForm({
         nama: position.name,

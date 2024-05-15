@@ -6,6 +6,7 @@ import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import { FormEventHandler } from "react";
 import { PageProps } from "@/types";
+import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,

@@ -87,7 +87,8 @@ export default function Dashboard({
                                                 Sudah Di Beri Gaji
                                             </div>
                                             <div className="text-secondary">
-                                                1 Orang Bulan ini
+                                                {sudahGajianBulanIni} Orang
+                                                Bulan ini
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +110,8 @@ export default function Dashboard({
                                                 Belum di berikan gaji
                                             </div>
                                             <div className="text-secondary">
-                                                5 Orang bulan ini.
+                                                {belumGajianBulanIni} Orang
+                                                bulan ini.
                                             </div>
                                         </div>
                                     </div>

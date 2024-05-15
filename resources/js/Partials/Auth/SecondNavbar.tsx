@@ -9,7 +9,7 @@ import {
     IconUsers,
 } from "@tabler/icons-react";
 import { FormEventHandler } from "react";
-
+import { route } from "../../../../vendor/tightenco/ziggy/src/js";
 export default function SecondNavbar({
     user,
     showCollapseSecondNavbar,

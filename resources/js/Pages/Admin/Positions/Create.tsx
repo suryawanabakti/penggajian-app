@@ -3,6 +3,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
 
 export default function Create({ auth, positions }: any) {
     const { data, setData, post, errors, processing } = useForm({
@@ -36,7 +37,7 @@ export default function Create({ auth, positions }: any) {
                                 <div className="mb-3">
                                     <InputLabel
                                         htmlFor="name"
-                                        value="Nama Lengkap"
+                                        value="Nama Jabatan"
                                     />
 
                                     <TextInput

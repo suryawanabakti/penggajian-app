@@ -6,7 +6,7 @@ import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
-
+import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
 export default function DeleteUserForm({
     className = "",
 }: {

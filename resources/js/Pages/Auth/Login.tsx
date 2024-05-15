@@ -7,7 +7,7 @@ import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PasswordToggle from "@/Components/PasswordToggle";
 import ApplicationLogo from "@/Components/ApplicationLogo";
-
+import { route } from "../../../../vendor/tightenco/ziggy/src/js";
 export default function Login({
     status,
     canResetPassword,

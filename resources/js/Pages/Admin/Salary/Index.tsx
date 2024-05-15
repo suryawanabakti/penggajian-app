@@ -1,7 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { IconSend } from "@tabler/icons-react";
 import FlashMessage from "@/Components/FlashMessage";
+import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
 
 export default function Index({
     auth,
@@ -11,6 +12,24 @@ export default function Index({
     year,
 }: any) {
     const { flash }: any = usePage().props;
+    const { data, setData, get } = useForm({
+        monthData: month,
+        yearData: year,
+    });
+
+    const handleChange = (e: any) => {
+        if (e.target.name == "month") {
+            setData("monthData", e.target.value);
+            get(
+                `/admin/salaries?month=${e.target.value}&year=${data.yearData}`
+            );
+        } else {
+            setData("yearData", e.target.value);
+            get(
+                `/admin/salaries?month=${data.monthData}&year=${e.target.value}`
+            );
+        }
+    };
 
     return (
         <AuthenticatedLayout user={auth.user} header="Penggajian">
@@ -22,7 +41,9 @@ export default function Index({
                     <div className="card">
                         <div className="card-body d-flex justify-content-start">
                             <select
+                                name="month"
                                 defaultValue={month}
+                                onChange={handleChange}
                                 className="form-control me-3"
                             >
                                 <option value="1">Januari</option>
@@ -39,7 +60,9 @@ export default function Index({
                                 <option value="12">Desember</option>
                             </select>
                             <select
+                                name="year"
                                 defaultValue={year}
+                                onChange={handleChange}
                                 className="form-control me-3"
                             >
                                 <option value="2024">2024</option>
@@ -48,6 +71,7 @@ export default function Index({
                                 <option value="2021">2021</option>
                             </select>
                         </div>
+
                         <div className="table-responsive">
                             <table className="table card-table table-hover table-striped">
                                 <thead>

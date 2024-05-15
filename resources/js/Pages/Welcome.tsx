@@ -1,6 +1,6 @@
 import { Link, Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
-
+import { route } from "../../../vendor/tightenco/ziggy/src/js";
 export default function Welcome({
     auth,
     laravelVersion,

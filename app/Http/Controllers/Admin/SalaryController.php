@@ -19,6 +19,15 @@ class SalaryController extends Controller
         $dateOfSalary = Carbon::now();
         $month = Carbon::createFromDate($dateOfSalary)->month;
         $year = Carbon::createFromDate($dateOfSalary)->year;
+        if ($request->month) {
+            $month = $request->month;
+            $dateOfSalary = Carbon::createFromDate("$year-$month-01");
+        }
+
+        if ($request->year) {
+            $year = $request->year;
+            $dateOfSalary = Carbon::createFromDate("$year-$month-01");
+        }
 
         $employees = Employee::all()->map(function ($employee) use ($month, $year) {
             $salary = Salary::whereMonth('tanggal', $month)->whereYear('tanggal', $year)->where('employee_id', $employee->id)->first();

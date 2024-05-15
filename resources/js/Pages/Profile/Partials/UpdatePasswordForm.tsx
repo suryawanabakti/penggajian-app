@@ -5,7 +5,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
-
+import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
 export default function UpdatePasswordForm({
     className = "",
 }: {
