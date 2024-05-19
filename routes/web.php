@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function () {
     // Admin
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin/employees', [EmployeeController::class, 'index'])->name('admin.employees.index');
+        Route::get('/admin/employees/{employee}', [EmployeeController::class, 'show'])->name('admin.employees.show');
         Route::get('/admin/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
         Route::post('/admin/employees', [EmployeeController::class, 'store'])->name('admin.employees.store');
         Route::get('/admin/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('admin.employees.edit');

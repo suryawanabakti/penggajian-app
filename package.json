@@ -30,6 +30,7 @@
         "react-apexcharts": "^1.4.1",
         "react-hot-toast": "^2.4.1",
         "react-js-pagination": "^3.0.3",
-        "react-number-format": "^5.3.4"
+        "react-number-format": "^5.3.4",
+        "react-select": "^5.8.0"
     }
 }

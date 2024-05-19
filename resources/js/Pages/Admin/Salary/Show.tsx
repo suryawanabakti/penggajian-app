@@ -14,15 +14,26 @@ import {
 import FlashMessage from "@/Components/FlashMessage";
 import { useState } from "react";
 import { NumericFormat } from "react-number-format";
-
+import CreatableSelect from "react-select/creatable";
 export default function Index({
     auth,
     employee,
     salary,
     dateOfSalary,
     monthOfSalary,
+    listNumber,
 }: any) {
     const { flash }: any = usePage().props;
+    const numbers: any = listNumber.map((number: any) => {
+        return {
+            label: new Intl.NumberFormat("id-ID", {
+                maximumSignificantDigits: 3,
+            }).format(number.number),
+            value: number.number,
+        };
+    });
+    console.log("numbers", numbers);
+    console.log(listNumber);
     const { data, setData, post, errors, processing } = useForm({
         gaji_pokok: salary?.gaji_pokok,
         tunjangan_jabatan: salary?.tunjangan_jabatan,
@@ -153,13 +164,15 @@ export default function Index({
                                     >
                                         Gaji Pokok
                                     </label>
-                                    <NumericFormat
-                                        name="gaji_pokok"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.gaji_pokok}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "gaji_pokok",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -169,13 +182,15 @@ export default function Index({
                                     >
                                         Tunjangan Jabatan
                                     </label>
-                                    <NumericFormat
-                                        name="tunjangan_jabatan"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.tunjangan_jabatan}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "tunjangan_jabatan",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -185,14 +200,15 @@ export default function Index({
                                     >
                                         Tunjangan Keluarga
                                     </label>
-                                    <NumericFormat
-                                        id="tunjangan_keluarga"
-                                        name="tunjangan_keluarga"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.tunjangan_keluarga}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "tunjangan_keluarga",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -202,14 +218,15 @@ export default function Index({
                                     >
                                         Tunjangan Khusus
                                     </label>
-                                    <NumericFormat
-                                        id="tunjangan_khusus"
-                                        name="tunjangan_khusus"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.tunjangan_khusus}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "tunjangan_khusus",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -219,14 +236,15 @@ export default function Index({
                                     >
                                         Tunjangan lembur & makan
                                     </label>
-                                    <NumericFormat
-                                        id="tunjangan_lembur_dan_makan"
-                                        name="tunjangan_lembur_dan_makan"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.tunjangan_lembur_dan_makan}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "tunjangan_lembur_dan_makan",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -236,16 +254,15 @@ export default function Index({
                                     >
                                         Tunjangan kelebihan mengajar
                                     </label>
-                                    <NumericFormat
-                                        id="tunjangan_kelebihan_mengajar"
-                                        name="tunjangan_kelebihan_mengajar"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={
-                                            data.tunjangan_kelebihan_mengajar
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "tunjangan_kelebihan_mengajar",
+                                                selectedOption.value
+                                            )
                                         }
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -255,14 +272,15 @@ export default function Index({
                                     >
                                         Tunjangan Kesra
                                     </label>
-                                    <NumericFormat
-                                        id="tunjangan_kesra"
-                                        name="tunjangan_kesra"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.tunjangan_kesra}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "tunjangan_kesra",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
 
@@ -273,14 +291,15 @@ export default function Index({
                                     >
                                         Potongan PPH21
                                     </label>
-                                    <NumericFormat
-                                        id="potongan_pph21"
-                                        name="potongan_pph21"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.potongan_pph21}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "potongan_pph21",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -290,14 +309,15 @@ export default function Index({
                                     >
                                         Potongan pinjaman koperasi
                                     </label>
-                                    <NumericFormat
-                                        id="potongan_pinjaman_koperasi"
-                                        name="potongan_pinjaman_koperasi"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.potongan_pinjaman_koperasi}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "potongan_pinjaman_koperasi",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -307,14 +327,15 @@ export default function Index({
                                     >
                                         Potongan sumbangan KYY
                                     </label>
-                                    <NumericFormat
-                                        id="potongan_sumbangan_kyy"
-                                        name="potongan_sumbangan_kyy"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.potongan_sumbangan_kyy}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "potongan_sumbangan_kyy",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -324,14 +345,15 @@ export default function Index({
                                     >
                                         Potongan simpanan wajib
                                     </label>
-                                    <NumericFormat
-                                        id="potongan_simpanan_wajib"
-                                        name="potongan_simpanan_wajib"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.potongan_simpanan_wajib}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "potongan_simpanan_wajib",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -342,16 +364,15 @@ export default function Index({
                                         Potongan BPJS kesehatan dan
                                         tenagakerjaan
                                     </label>
-                                    <NumericFormat
-                                        id="potongan_bpjs_kesehatan_dan_tenagakerjaan"
-                                        name="potongan_bpjs_kesehatan_dan_tenagakerjaan"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={
-                                            data.potongan_bpjs_kesehatan_dan_tenagakerjaan
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "potongan_bpjs_kesehatan_dan_tenagakerjaan",
+                                                selectedOption.value
+                                            )
                                         }
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -361,14 +382,15 @@ export default function Index({
                                     >
                                         Potongan Arisan
                                     </label>
-                                    <NumericFormat
-                                        id="potongan_arisan"
-                                        name="potongan_arisan"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.potongan_arisan}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "potongan_arisan",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -378,14 +400,15 @@ export default function Index({
                                     >
                                         Potongan Dan Lain-lain
                                     </label>
-                                    <NumericFormat
-                                        id="potongan_dll"
-                                        name="potongan_dll"
-                                        onChange={handleChange}
-                                        className="form-control"
-                                        value={data.potongan_dll}
-                                        allowLeadingZeros
-                                        thousandSeparator=","
+                                    <CreatableSelect
+                                        isClearable
+                                        onChange={(selectedOption: any) =>
+                                            setData(
+                                                "potongan_arisan",
+                                                selectedOption.value
+                                            )
+                                        }
+                                        options={numbers}
                                     />
                                 </div>
                             </div>

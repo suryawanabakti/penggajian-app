@@ -3,7 +3,7 @@ import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { IconCaretDown, IconRefresh, IconSettings } from "@tabler/icons-react";
 import FlashMessage from "@/Components/FlashMessage";
 import Pagination from "@/Components/Pagination";
-
+import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
 export default function Index({ auth, employees, search }: any) {
     const { flash }: any = usePage().props;
     const { data, setData, get } = useForm({
@@ -95,7 +95,8 @@ export default function Index({ auth, employees, search }: any) {
                                 <table className="table table-hover card-table table-vcenter datatable">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>Kode</th>
+                                            <th>Nama</th>
                                             <th>Email</th>
                                             <th>Jabatan</th>
                                             <th></th>
@@ -105,6 +106,16 @@ export default function Index({ auth, employees, search }: any) {
                                         {employees.data.map((data: any) => {
                                             return (
                                                 <tr key={data.id}>
+                                                    <td>
+                                                        <Link
+                                                            href={route(
+                                                                "admin.employees.show",
+                                                                data.id
+                                                            )}
+                                                        >
+                                                            {data.code}
+                                                        </Link>
+                                                    </td>
                                                     <td>{data.user.name}</td>
                                                     <td>{data.user.email}</td>
                                                     <td>

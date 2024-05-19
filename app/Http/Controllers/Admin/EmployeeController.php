@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Position;
+use App\Models\Salary;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -26,6 +27,33 @@ class EmployeeController extends Controller
             "employees" => $employees->paginate(10),
             "search" => $request->search
         ]);
+    }
+
+    public function show(Employee $employee)
+    {
+        $salaries = Salary::orderBy('tanggal', 'desc')->where('employee_id', $employee->id)->get()->map(function ($salary) {
+            return [
+                "id" => $salary->id,
+                "tanggal" => (new \Carbon\Carbon($salary->tanggal))->format("M/Y"),
+                "gaji_pokok" => $salary->gaji_pokok,
+                "tunjangan_jabatan" => $salary->tunjangan_jabatan,
+                "tunjangan_keluarga" => $salary->tunjangan_keluarga,
+                "tunjangan_khusus" => $salary->tunjangan_khusus,
+                "tunjangan_lembur_dan_makan" => $salary->tunjangan_lembur_dan_makan,
+                "tunjangan_kelebihan_mengajar" => $salary->tunjangan_kelebihan_mengajar,
+                "tunjangan_kesra" => $salary->tunjangan_kesra,
+                "potongan_pph21" => $salary->potongan_pph21,
+                "potongan_pinjaman" => $salary->potongan_pinjaman,
+                "potongan_pinjaman_koperasi" => $salary->potongan_pinjaman_koperasi,
+                "potongan_simpanan_wajib" => $salary->potongan_simpanan_wajib,
+                "potongan_sumbangan_kyy" => $salary->potongan_sumbangan_kyy,
+                "potongan_bpjs_kesehatan_dan_tenagakerjaan" => $salary->potongan_bpjs_kesehatan_dan_tenagakerjaan,
+                "potongan_arisan" => $salary->potongan_arisan,
+                "potongan_dll" => $salary->potongan_dll,
+                "total" => $salary->total,
+            ];
+        });
+        return Inertia::render("Admin/Employees/Show", ["employee" => $employee, "salaries" => $salaries]);
     }
 
     public function create()
@@ -56,7 +84,14 @@ class EmployeeController extends Controller
         ]);
 
         try {
+            $employee = Employee::orderBy('created_at', 'desc')->first();
+            if (empty($employee)) {
+                $incrementing = 1;
+            } else {
+                $incrementing = $employee->id + 1;
+            }
             Employee::create([
+                'kode' => "0" . $incrementing,
                 'user_id' => $user->id,
                 'nik' => $request->nik,
                 'nidn' => $request->nidn,

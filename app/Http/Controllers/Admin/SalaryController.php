@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\ListNumber;
 use App\Models\Salary;
 use App\Models\User;
 use App\Notifications\CreatedSuccessfully;
@@ -53,6 +54,7 @@ class SalaryController extends Controller
     {
         $salary = Salary::whereMonth('tanggal', Carbon::createFromDate($dateOfSalary)->month)->where('employee_id', $employee->id)->first();
         return Inertia::render("Admin/Salary/Show", [
+            "listNumber" => ListNumber::all(),
             "employee" => $employee,
             "salary" => $salary,
             "dateOfSalary" => $dateOfSalary,

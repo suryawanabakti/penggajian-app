@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->unsignedBigInteger('position_id')->references('id')->on('positions')->cascadeOnDelete();
+            $table->string('code');
             $table->string('nik')->nullable()->unique();
             $table->string('nidn')->nullable()->unique();
             $table->text('address');
