@@ -14,6 +14,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Models\Employee;
 use App\Models\Salary;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::post('/notifications/mark-all-as-read', [NotificationController::class, '
 Route::get('/dashboard', function () {
     /** @var \App\Models\User */
     $user = Auth::user();
-    if ($user->hasRole('admin')) {
+    if ($user->hasRole(['admin', 'pimpinan'])) {
         return redirect('/admin/dashboard');
     } else {
         return redirect('/user/dashboard');
@@ -57,10 +58,15 @@ Route::get('/admin/dashboard', function () {
         "sudahGajianBulanIni" => $sudahGajianBulanIni,
         "belumGajianBulanIni" => Employee::count() - $sudahGajianBulanIni,
     ]);
-})->middleware(['auth', 'verified', 'role:admin'])->name('admin.dashboard');
+})->middleware(['auth', 'verified', 'role:admin|pimpinan'])->name('admin.dashboard');
 
 Route::get('/user/dashboard', function () {
-    return Inertia::render('Dashboard');
+
+    $salaries = Salary::with('employee.user')->where("employee_id", auth()->user()->employee->id)->get()->map(function ($data) {
+        $data['tanggal'] = Carbon::createFromDate($data->tanggal)->format('M / Y');
+        return $data;
+    });
+    return Inertia::render('User/Dashboard', ["salaries" => $salaries]);
 })->middleware(['auth', 'verified', 'role:user'])->name('user.dashboard');
 
 
@@ -76,8 +82,8 @@ Route::middleware('auth')->group(function () {
     // Admin
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin/employees', [EmployeeController::class, 'index'])->name('admin.employees.index');
-        Route::get('/admin/employees/{employee}', [EmployeeController::class, 'show'])->name('admin.employees.show');
         Route::get('/admin/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
+        Route::get('/admin/employees/{employee}', [EmployeeController::class, 'show'])->name('admin.employees.show');
         Route::post('/admin/employees', [EmployeeController::class, 'store'])->name('admin.employees.store');
         Route::get('/admin/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('admin.employees.edit');
         Route::put('/admin/employees/{employee}', [EmployeeController::class, 'update'])->name('admin.employees.update');
@@ -94,13 +100,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/salaries/employee/{employee}/date-of-salary/{dateOfSalary}', [AdminSalaryController::class, 'show'])->name('admin.salaries.show');
         Route::post('/admin/salaries/employee/{employee}/date-of-salary/{dateOfSalary}', [AdminSalaryController::class, 'store'])->name('admin.salaries.store');
 
-        Route::get('/admin/reports', [AdminReportController::class, 'index'])->name('admin.reports.index');
-        Route::get('/admin/reports/show', [AdminReportController::class, 'show'])->name('admin.reports.show');
 
         Route::get('/admin/reports/{salary}/export', [AdminReportController::class, 'export'])->name('admin.reports.export');
 
         Route::get('/admin/reports/exports', [AdminReportController::class, 'exports'])->name('admin.reports.export');
     });
+
+    Route::get('/admin/reports', [AdminReportController::class, 'index'])->name('admin.reports.index');
+    Route::get('/admin/reports/show', [AdminReportController::class, 'show'])->name('admin.reports.show');
 });
 
 require __DIR__ . '/auth.php';

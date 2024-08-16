@@ -1,30 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import {
-    IconDotsVertical,
-    IconDownload,
-    IconFileTypeXls,
-    IconMenu,
-    IconMinus,
-    IconPlus,
-    IconRefresh,
-    IconSend,
-} from "@tabler/icons-react";
-import FlashMessage from "@/Components/FlashMessage";
-import { FormEventHandler, useState } from "react";
+import { Head } from "@inertiajs/react";
+import { IconDownload } from "@tabler/icons-react";
 
-export default function Show({
-    auth,
-    month,
-    year,
-    totalSalary,
-    salaries,
-}: any) {
-    const { post, data, setData } = useForm({
-        search: "",
-    });
-    const { flash }: any = usePage().props;
-    const [show, setShow] = useState(true);
+export default function Dashboard({ auth, salaries }: any) {
     const handleExport = (id: number) => {
         window.location.href = `/admin/reports/${id}/export`;
     };
@@ -36,104 +14,19 @@ export default function Show({
         }).format(num);
     };
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={`Laporan`}
-            dropdown={<Link href="/admin/reports">Kembali</Link>}
-        >
-            <Head title="Laporan" />
-
+        <AuthenticatedLayout user={auth.user} header="Dashboard Gajian Saya">
+            <Head title="Daftar Gajian Saya" />
             <div className="page-body">
                 <div className="container">
-                    <FlashMessage flash={flash.message} />
-                    <div className="card mb-5">
-                        <div className="card-body d-flex justify-between">
-                            <b>Detail</b>
-                            <button
-                                className="btn btn-icon btn-primary btn-sm"
-                                onClick={() => setShow(!show)}
-                            >
-                                {show ? (
-                                    <IconMinus className="icon" />
-                                ) : (
-                                    <IconPlus className="icon" />
-                                )}
-                            </button>
-                        </div>
-                        <table
-                            className={`table card-table table-bordered table-hover table-striped ${
-                                show ? "" : "collapse"
-                            }`}
-                        >
-                            <tbody>
-                                <tr>
-                                    <th>Bulan</th>
-                                    <td>{month}</td>
-                                </tr>
-                                <tr>
-                                    <th>Tahun</th>
-                                    <td>{year}</td>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <td>{numberFormat(totalSalary)}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                     <div className="card">
-                        <div className="card-body border-bottom py-3">
-                            <div className="d-flex">
-                                <b className="me-2">
-                                    Laporan {month} / {year}
-                                </b>
-                                <div className="text-secondary"></div>
-                                <div className="ms-auto text-secondary">
-                                    Search:
-                                    <div className="ms-2 d-inline-block">
-                                        <form action="">
-                                            <input
-                                                type="text"
-                                                className="form-control form-control-sm"
-                                                aria-label="Search User"
-                                                placeholder="Press Enter To Search"
-                                                name="search"
-                                                value={data.search}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "search",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            <input
-                                                type="hidden"
-                                                name="bulan"
-                                                value={month}
-                                            />
-                                            <input
-                                                type="hidden"
-                                                name="tahun"
-                                                value={year}
-                                            />
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="card-header">
+                            <h4 className="card-title">Daftar Gajian</h4>
                         </div>
                         <div className="table-responsive">
                             <table className="card-table table table-hover">
                                 <thead>
                                     <tr>
-                                        <th
-                                            style={{
-                                                position: "sticky",
-                                                left: 0,
-                                            }}
-                                        >
-                                            Karyawan
-                                        </th>
-
+                                        <th>Tanggal</th>
                                         <th>Gaji Pokok</th>
                                         <th>Tunj.Jabatan</th>
                                         <th>Tunj.Keluarga</th>
@@ -155,20 +48,8 @@ export default function Show({
                                     {salaries.map((data: any) => {
                                         return (
                                             <tr key={data.id}>
-                                                <td
-                                                    className="text-nowrap"
-                                                    style={{
-                                                        position: "sticky",
-                                                        left: 0,
-                                                        backgroundColor: "#fff",
-                                                    }}
-                                                >
-                                                    {data.employee.user.name}{" "}
-                                                    <br />
-                                                    {
-                                                        data.employee.position
-                                                            .name
-                                                    }
+                                                <td className="text-nowrap fw-bold">
+                                                    {data.tanggal}
                                                 </td>
                                                 <td>
                                                     {numberFormat(
@@ -182,9 +63,7 @@ export default function Show({
                                                 </td>
                                                 <td>
                                                     {numberFormat(
-                                                        data.gaji_pokok *
-                                                            (data.tunjangan_keluarga /
-                                                                100)
+                                                        data.tunjangan_keluarga
                                                     )}
                                                 </td>
                                                 <td>

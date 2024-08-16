@@ -18,6 +18,7 @@ export default function SecondNavbar({
     showCollapseSecondNavbar: boolean;
 }) {
     let links;
+    console.log(user.roles[0].name);
     if (user.roles[0].name == "admin") {
         links = (
             <>
@@ -88,6 +89,28 @@ export default function SecondNavbar({
             </>
         );
     }
+    if (user.roles[0].name == "pimpinan") {
+        links = (
+            <>
+                <li
+                    className={`nav-item ${
+                        route().current("admin.reports*") ? "active" : ""
+                    }`}
+                >
+                    <Link className="nav-link" href="/admin/reports">
+                        <span className="nav-link-icon d-md-none d-lg-inline-block">
+                            <IconFileSpreadsheet
+                                className="icon"
+                                size={24}
+                                strokeWidth={2}
+                            />
+                        </span>
+                        <span className="nav-link-title">Laporan</span>
+                    </Link>
+                </li>
+            </>
+        );
+    }
     const { data, setData, get, processing } = useForm({
         search: "",
     });
@@ -130,7 +153,7 @@ export default function SecondNavbar({
                             {links}
                         </ul>
                         <div className="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-                            <form onSubmit={handleSearch} autoComplete="off">
+                            {/* <form onSubmit={handleSearch} autoComplete="off">
                                 <div className="input-icon">
                                     <span className="input-icon-addon">
                                         <IconSearch
@@ -149,7 +172,7 @@ export default function SecondNavbar({
                                         }
                                     />
                                 </div>
-                            </form>
+                            </form> */}
                         </div>
                     </div>
                 </div>

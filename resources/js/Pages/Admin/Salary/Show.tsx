@@ -32,6 +32,7 @@ export default function Index({
             value: number.number,
         };
     });
+
     console.log("numbers", numbers);
     console.log(listNumber);
     const { data, setData, post, errors, processing } = useForm({
@@ -64,7 +65,12 @@ export default function Index({
     const handleSubmit = (e: any) => {
         e.preventDefault();
         post(
-            `/admin/salaries/employee/${employee.id}/date-of-salary/${dateOfSalary}`
+            `/admin/salaries/employee/${employee.id}/date-of-salary/${dateOfSalary}`,
+            {
+                onError: (err) => {
+                    console.log(err);
+                },
+            }
         );
     };
     return (
@@ -198,8 +204,9 @@ export default function Index({
                                         htmlFor="tunjangan_keluarga"
                                         className="form-label"
                                     >
-                                        Tunjangan Keluarga
+                                        Tunjangan Keluarga (%)
                                     </label>
+
                                     <CreatableSelect
                                         isClearable
                                         onChange={(selectedOption: any) =>
@@ -208,7 +215,24 @@ export default function Index({
                                                 selectedOption.value
                                             )
                                         }
-                                        options={numbers}
+                                        options={[
+                                            {
+                                                label: "5 %",
+                                                value: 5,
+                                            },
+                                            {
+                                                label: "10 %",
+                                                value: 10,
+                                            },
+                                            {
+                                                label: "15 %",
+                                                value: 15,
+                                            },
+                                            {
+                                                label: "20 %",
+                                                value: 20,
+                                            },
+                                        ]}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -404,7 +428,7 @@ export default function Index({
                                         isClearable
                                         onChange={(selectedOption: any) =>
                                             setData(
-                                                "potongan_arisan",
+                                                "potongan_dll",
                                                 selectedOption.value
                                             )
                                         }

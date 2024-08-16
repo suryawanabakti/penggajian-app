@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
-import { IconCaretDown, IconSettings } from "@tabler/icons-react";
+import { IconCaretDown, IconPlus, IconSettings } from "@tabler/icons-react";
 import FlashMessage from "@/Components/FlashMessage";
 
 export default function Index({ auth, positions }: any) {
@@ -8,14 +8,10 @@ export default function Index({ auth, positions }: any) {
 
     const dropdown = (
         <div className="dropdown">
-            <button
-                className="btn btn-icon"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-            >
-                <IconCaretDown className="icon" />
-            </button>
+            <Link href="/admin/positions/create" className="btn btn-primary">
+                <IconPlus className="icon" />
+                Tambah Jabatan
+            </Link>
             <ul className="dropdown-menu">
                 <li>
                     <Link

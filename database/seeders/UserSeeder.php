@@ -19,5 +19,11 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole("admin");
+
+        \App\Models\User::create([
+            'name' => 'Pimpinan',
+            'email' => 'pimpinan@pimpinan',
+            'password' => bcrypt('password')
+        ])->assignRole("pimpinan");
     }
 }

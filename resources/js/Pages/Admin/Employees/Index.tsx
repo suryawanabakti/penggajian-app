@@ -1,6 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import { IconCaretDown, IconRefresh, IconSettings } from "@tabler/icons-react";
+import {
+    IconCaretDown,
+    IconPlus,
+    IconRefresh,
+    IconSettings,
+} from "@tabler/icons-react";
 import FlashMessage from "@/Components/FlashMessage";
 import Pagination from "@/Components/Pagination";
 import { route } from "../../../../../vendor/tightenco/ziggy/src/js";
@@ -12,14 +17,9 @@ export default function Index({ auth, employees, search }: any) {
 
     const dropdown = (
         <div className="dropdown">
-            <button
-                className="btn btn-icon"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-            >
-                <IconCaretDown className="icon" />
-            </button>
+            <Link className="btn btn-primary" href="/admin/employees/create">
+                <IconPlus className="icon" /> Tambah Pegawai
+            </Link>
             <ul className="dropdown-menu">
                 <li>
                     <Link

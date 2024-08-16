@@ -81,8 +81,8 @@ class SalaryController extends Controller
             'potongan_arisan' => ['required', 'numeric'],
             'potongan_dll' => ['required', 'numeric'],
         ]);
-
-        $validatedData['tunjangan'] = $request->tunjangan_jabatan + $request->tunjangan_keluarga + $request->tunjangan_khusus + $request->tunjangan_lembur_dan_makan + $request->tunjangan_kelebihan_mengajar + $request->tunjangan_kesra;
+        $tunjangan_keluarga = $request->gaji_pokok * ($request->tunjangan_keluarga / 100);
+        $validatedData['tunjangan'] = $request->tunjangan_jabatan + $tunjangan_keluarga + $request->tunjangan_khusus + $request->tunjangan_lembur_dan_makan + $request->tunjangan_kelebihan_mengajar + $request->tunjangan_kesra;
 
         $validatedData['potongan'] = (int)$request->potongan_pph21 + (int) $request->potongan_pinjaman_koperasi + (int) $request->potongan_sumbangan_kyy + (int)$request->potongan_simpanan_wajib + (int)$request->potongan_bpjs_kesehatan_dan_tenagakerjaan + (int)$request->potongan_arisan + (int) $request->potongan_dll;
 
@@ -95,14 +95,16 @@ class SalaryController extends Controller
         $salary = Salary::where('employee_id', $employee->id)->whereMonth('tanggal', $month)->whereYear("tanggal", $year);
         $user = User::where('id', $employee->user_id)->first();
         if ($salary->count() == 0) {
-            Salary::create($validatedData);
+            $salary = Salary::create($validatedData);
             $user->notify(new CreatedSuccessfully($user->name));
-            Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *ditambahkan*");
+            Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *ditambahkan* \n\nKlik link di bawah ini untuk mencetak laporan gaji\n" . url("/admin/reports/$salary->id/export"));
             $message = "Berhasil menambah gaji bulan $month / $year";
         } else {
+
+            Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *diupdate* \n\nKlik link di bawah ini untuk mencetak laporan gaji\n"  . url("/admin/reports/$salary->id/export"));
             $salary->update($validatedData);
             $user->notify(new UpdatedSuccessfully($user->name));
-            Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *diupdate*");
+
             $message = "Berhasil mengupdate gaji bulan $month / $year";
         }
 

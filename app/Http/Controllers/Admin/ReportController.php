@@ -25,7 +25,7 @@ class ReportController extends Controller
 
     public function show(Request $request)
     {
-        $salaries = Salary::whereMonth('tanggal', $request->bulan)->whereYear('tanggal', $request->tahun)->get();
+        $salaries = Salary::with('employee.user')->whereHas('employee.user')->whereMonth('tanggal', $request->bulan)->whereYear('tanggal', $request->tahun)->get();
 
         return Inertia::render("Admin/Reports/Show", [
             "year" => $request->tahun,
