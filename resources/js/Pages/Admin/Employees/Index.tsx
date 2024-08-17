@@ -40,7 +40,14 @@ export default function Index({ auth, employees, search }: any) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header="Pegawai"
+            header={
+                <div className="col">
+                    <h2 className="page-title">Pegawai</h2>
+                    <div className="text-secondary mt-1 text-sm">
+                        1-{10} dari {employees.total} pegawai.
+                    </div>
+                </div>
+            }
             dropdown={dropdown}
         >
             <Head title="Pegawai" />
@@ -119,37 +126,23 @@ export default function Index({ auth, employees, search }: any) {
                                                     <td>{data.user.name}</td>
                                                     <td>{data.user.email}</td>
                                                     <td>
-                                                        {data.position.name}
+                                                        {data.position?.name}
                                                     </td>
                                                     <td>
-                                                        <div className="dropdown">
-                                                            <button
-                                                                className=""
-                                                                type="button"
-                                                                data-bs-toggle="dropdown"
-                                                                aria-expanded="false"
+                                                        <div className="btn-actions gap-2">
+                                                            <Link
+                                                                className="btn btn-warning btn-sm"
+                                                                href={`/admin/employees/${data.id}/edit`}
                                                             >
-                                                                <IconSettings className="icon" />
-                                                            </button>
-                                                            <ul className="dropdown-menu">
-                                                                <li>
-                                                                    <Link
-                                                                        className="dropdown-item"
-                                                                        href={`/admin/employees/${data.id}/edit`}
-                                                                    >
-                                                                        Edit
-                                                                    </Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link
-                                                                        className="dropdown-item"
-                                                                        method="delete"
-                                                                        href={`/admin/employees/${data.id}`}
-                                                                    >
-                                                                        Delete
-                                                                    </Link>
-                                                                </li>
-                                                            </ul>
+                                                                Edit
+                                                            </Link>
+                                                            <Link
+                                                                className="btn btn-danger btn-sm"
+                                                                method="delete"
+                                                                href={`/admin/employees/${data.id}`}
+                                                            >
+                                                                Delete
+                                                            </Link>
                                                         </div>
                                                     </td>
                                                 </tr>

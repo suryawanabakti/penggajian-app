@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, usePage } from "@inertiajs/react";
 import { IconCaretDown, IconPlus, IconSettings } from "@tabler/icons-react";
 import FlashMessage from "@/Components/FlashMessage";
+import moment from "moment";
 
 export default function Index({ auth, positions }: any) {
     const { flash }: any = usePage().props;
@@ -32,7 +33,14 @@ export default function Index({ auth, positions }: any) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header="Jabatan"
+            header={
+                <div className="col">
+                    <h2 className="page-title">Jabatan</h2>
+                    <div className="text-secondary mt-1 text-sm">
+                        1-{10} dari {positions.length} jabatan.
+                    </div>
+                </div>
+            }
             dropdown={dropdown}
         >
             <Head title="Jabatan" />
@@ -54,6 +62,8 @@ export default function Index({ auth, positions }: any) {
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -63,15 +73,25 @@ export default function Index({ auth, positions }: any) {
                                             <tr key={data.id}>
                                                 <td>{data.name}</td>
                                                 <td>
+                                                    {moment(
+                                                        data.created_at
+                                                    ).format("DD/MM/YYYY")}
+                                                </td>
+                                                <td>
+                                                    {moment(
+                                                        data.updated_at
+                                                    ).format("DD/MM/YYYY")}
+                                                </td>
+                                                <td>
                                                     <div className="btn-actions gap-2">
                                                         <Link
-                                                            className="btn btn-warning"
+                                                            className="btn btn-warning btn-sm"
                                                             href={`/admin/positions/${data.id}/edit`}
                                                         >
                                                             Edit
                                                         </Link>
                                                         <Link
-                                                            className="btn btn-danger"
+                                                            className="btn btn-danger btn-sm"
                                                             method="delete"
                                                             href={`/admin/positions/${data.id}`}
                                                         >
