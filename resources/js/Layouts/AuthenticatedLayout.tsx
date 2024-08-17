@@ -24,6 +24,11 @@ export default function Authenticated({
     const { flash }: any = usePage().props;
 
     useEffect(() => {
+        if (window.innerWidth > 600) {
+            setCollapseSecondNavbar(true);
+        } else {
+            setCollapseSecondNavbar(false);
+        }
         window.addEventListener("resize", () => {
             if (window.innerWidth > 600) {
                 setCollapseSecondNavbar(true);

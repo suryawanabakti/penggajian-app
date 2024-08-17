@@ -41,65 +41,50 @@ export default function Index({ auth, positions }: any) {
                 <div className="container">
                     <FlashMessage flash={flash.message} />
                     <div className="card">
-                        <div className="card-body">
-                            {positions.length === 0 ? (
-                                <div>
-                                    ⚠️ Belum ada pegawai silahkan tambah pegawai{" "}
-                                    <Link href="/admin/positions/create">
-                                        Klik disini
-                                    </Link>
-                                </div>
-                            ) : (
-                                <table className="table card-table table-vcenter  datatable">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {positions.map((data: any) => {
-                                            return (
-                                                <tr key={data.id}>
-                                                    <td>{data.name}</td>
-                                                    <td>
-                                                        <div className="dropdown">
-                                                            <button
-                                                                className=""
-                                                                type="button"
-                                                                data-bs-toggle="dropdown"
-                                                                aria-expanded="false"
-                                                            >
-                                                                <IconSettings className="icon" />
-                                                            </button>
-                                                            <ul className="dropdown-menu">
-                                                                <li>
-                                                                    <Link
-                                                                        className="dropdown-item"
-                                                                        href={`/admin/positions/${data.id}/edit`}
-                                                                    >
-                                                                        Edit
-                                                                    </Link>
-                                                                </li>
-                                                                <li>
-                                                                    <Link
-                                                                        className="dropdown-item"
-                                                                        method="delete"
-                                                                        href={`/admin/positions/${data.id}`}
-                                                                    >
-                                                                        Delete
-                                                                    </Link>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            )}
-                        </div>
+                        <div className="card-body"></div>
+                        {positions.length === 0 ? (
+                            <div>
+                                ⚠️ Belum ada pegawai silahkan tambah pegawai{" "}
+                                <Link href="/admin/positions/create">
+                                    Klik disini
+                                </Link>
+                            </div>
+                        ) : (
+                            <table className="table card-table table-vcenter  datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {positions.map((data: any) => {
+                                        return (
+                                            <tr key={data.id}>
+                                                <td>{data.name}</td>
+                                                <td>
+                                                    <div className="btn-actions gap-2">
+                                                        <Link
+                                                            className="btn btn-warning"
+                                                            href={`/admin/positions/${data.id}/edit`}
+                                                        >
+                                                            Edit
+                                                        </Link>
+                                                        <Link
+                                                            className="btn btn-danger"
+                                                            method="delete"
+                                                            href={`/admin/positions/${data.id}`}
+                                                        >
+                                                            Delete
+                                                        </Link>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        )}
                     </div>
                 </div>
             </div>

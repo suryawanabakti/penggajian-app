@@ -53,7 +53,7 @@ export default function Dashboard({
             <div className="page-body">
                 <div className="container">
                     <div className="row row-deck row-cards">
-                        <div className="col-sm-6 col-lg-3">
+                        <div className="col-sm-6 col-lg-4">
                             <div className="card card-sm">
                                 <div className="card-body">
                                     <div className="row align-items-center">
@@ -72,7 +72,7 @@ export default function Dashboard({
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-6 col-lg-3">
+                        <div className="col-sm-6 col-lg-4">
                             <div className="card card-sm">
                                 <div className="card-body">
                                     <div className="row align-items-center">
@@ -95,7 +95,7 @@ export default function Dashboard({
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-6 col-lg-3">
+                        <div className="col-sm-6 col-lg-4">
                             <div className="card card-sm">
                                 <div className="card-body">
                                     <div className="row align-items-center">
