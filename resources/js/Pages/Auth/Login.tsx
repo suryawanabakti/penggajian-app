@@ -60,11 +60,11 @@ export default function Login({
                             </h2>
                             <form onSubmit={submit}>
                                 <div className="mb-3">
-                                    <InputLabel value="Email" />
+                                    <InputLabel value="Username" />
 
                                     <TextInput
-                                        type="email"
-                                        placeholder="kamu@email.com"
+                                        type="text"
+                                        placeholder="Username kamu..."
                                         autoComplete="off"
                                         value={data.email}
                                         onChange={(e) =>

@@ -41,8 +41,8 @@ class SalaryController extends Controller
 
             return [
                 "id" => $employee->id,
-                "nama" => $employee->user->name,
-                "jabatan" => $employee->position->name,
+                "nama" => $employee->user?->name,
+                "jabatan" => $employee->position?->name,
                 "salary" => $data ?? null
             ];
         });
@@ -52,7 +52,8 @@ class SalaryController extends Controller
 
     public function show(Employee $employee, $dateOfSalary)
     {
-        $salary = Salary::whereMonth('tanggal', Carbon::createFromDate($dateOfSalary)->month)->where('employee_id', $employee->id)->first();
+        $salary = Salary::where('employee_id', $employee->id)->orderBy('created_at', 'DESC')->first();
+
         return Inertia::render("Admin/Salary/Show", [
             "listNumber" => ListNumber::all(),
             "employee" => $employee,
@@ -92,9 +93,9 @@ class SalaryController extends Controller
 
         $month = Carbon::createFromDate($dateOfSalary)->month;
         $year = Carbon::createFromDate($dateOfSalary)->year;
-        $salary = Salary::where('employee_id', $employee->id)->whereMonth('tanggal', $month)->whereYear("tanggal", $year);
+        $salary = Salary::where('employee_id', $employee->id)->whereMonth('tanggal', $month)->whereYear("tanggal", $year)->first();
         $user = User::where('id', $employee->user_id)->first();
-        if ($salary->count() == 0) {
+        if (empty($salary)) {
             $salary = Salary::create($validatedData);
             $user->notify(new CreatedSuccessfully($user->name));
             Controller::sendWa($employee->phone, "Hi $user->name 👋.\n\nGaji anda di bulan $month / $year telah *ditambahkan* \n\nKlik link di bawah ini untuk mencetak laporan gaji\n" . url("/admin/reports/$salary->id/export"));

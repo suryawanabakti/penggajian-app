@@ -58,9 +58,12 @@
             </tr>
             <tr>
                 <td></td>
-                <td>2. Keluargga</td>
+                <td>2. Keluarga</td>
                 <td>Rp.</td>
-                <td style="text-align: right">{{ number_format($salary->tunjangan_keluarga) }}</td>
+                @php
+                    $tunjangan_keluarga = $salary->gaji_pokok * ($salary->tunjangan_keluarga / 100);
+                @endphp
+                <td style="text-align: right">{{ number_format($tunjangan_keluarga) }}</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -113,7 +116,17 @@
                 <td style="text-align: right"></td>
                 <td>Rp.</td>
                 <td style="text-align: right">
-                    {{ number_format($salary->tunjangan_jabatan + $salary->tunjangan_keluarga + $salary->tunjangan_khusus + $salary->tunjangan_tunjangan_lembur_dan_makan + $salary->tunjangan_kelebihan_mengajar + $salary->tunjangan_kesra + $salary->gaji_pokok) }}
+                    @php
+                        $totalPendapatan =
+                            $salary->tunjangan_jabatan +
+                            $tunjangan_keluarga +
+                            $salary->tunjangan_khusus +
+                            $salary->tunjangan_tunjangan_lembur_dan_makan +
+                            $salary->tunjangan_kelebihan_mengajar +
+                            $salary->tunjangan_kesra +
+                            $salary->gaji_pokok;
+                    @endphp
+                    {{ number_format($salary->tunjangan_jabatan + $tunjangan_keluarga + $salary->tunjangan_khusus + $salary->tunjangan_tunjangan_lembur_dan_makan + $salary->tunjangan_kelebihan_mengajar + $salary->tunjangan_kesra + $salary->gaji_pokok) }}
                 </td>
             </tr>
             {{-- POTONGAN --}}
@@ -143,9 +156,9 @@
             </tr>
             <tr>
                 <td></td>
-                <td>3. Sumbangan KKY</td>
+                <td>3. Sumbangan KYY</td>
                 <td>Rp.</td>
-                <td style="text-align: right">{{ number_format($salary->potongan_sumbangan_kky) }}</td>
+                <td style="text-align: right">{{ number_format($salary->potongan_sumbangan_kyy) }}</td>
                 <td></td>
                 <td></td>
             </tr>
@@ -191,7 +204,17 @@
                 <td style="text-align: right"></td>
                 <td>Rp.</td>
                 <td style="text-align: right">
-                    {{ number_format($salary->potongan_pph21 + $salary->potongan_pinjaman_koperasi + $salary->potongan_sumbangan_kky + $salary->potongan_simpanan_wajib + $salary->potongan_bpjs_kesehatan_dan_tenagakerjaan + $salary->potongan_arisan + $salary->potongan_dll) }}
+                    @php
+                        $totalPotongan =
+                            $salary->potongan_pph21 +
+                            $salary->potongan_pinjaman_koperasi +
+                            $salary->potongan_sumbangan_kyy +
+                            $salary->potongan_simpanan_wajib +
+                            $salary->potongan_bpjs_kesehatan_dan_tenagakerjaan +
+                            $salary->potongan_arisan +
+                            $salary->potongan_dll;
+                    @endphp
+                    {{ number_format($salary->potongan_pph21 + $salary->potongan_pinjaman_koperasi + $salary->potongan_sumbangan_kyy + $salary->potongan_simpanan_wajib + $salary->potongan_bpjs_kesehatan_dan_tenagakerjaan + $salary->potongan_arisan + $salary->potongan_dll) }}
                 </td>
             </tr>
             <tr>
@@ -201,7 +224,7 @@
                 <td style="text-align: right"></td>
                 <td>Rp.</td>
                 <td style="text-align: right">
-                    {{ number_format($salary->total) }}
+                    {{ number_format($totalPendapatan - $totalPotongan) }}
                 </td>
             </tr>
         </thead>

@@ -167,7 +167,7 @@ export default function Show({
                                                     <br />
                                                     {
                                                         data.employee.position
-                                                            .name
+                                                            ?.name
                                                     }
                                                 </td>
                                                 <td>

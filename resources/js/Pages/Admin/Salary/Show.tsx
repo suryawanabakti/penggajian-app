@@ -106,11 +106,11 @@ export default function Index({
                             <tbody>
                                 <tr>
                                     <th>Nama</th>
-                                    <td>{employee.user.name}</td>
+                                    <td>{employee.user?.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Jabatan</th>
-                                    <td>{employee.position.name}</td>
+                                    <td>{employee.position?.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Status</th>
@@ -147,17 +147,6 @@ export default function Index({
                                     >
                                         <IconMenu className="icon" />
                                     </button>
-                                    <ul className="dropdown-menu">
-                                        <li>
-                                            <Link
-                                                className="dropdown-item"
-                                                href={`#`}
-                                            >
-                                                Dapatkan Gaji Sebelumnya
-                                            </Link>
-                                        </li>
-                                        <li></li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -179,6 +168,10 @@ export default function Index({
                                             )
                                         }
                                         options={numbers}
+                                        defaultValue={{
+                                            value: data.gaji_pokok,
+                                            label: data.gaji_pokok,
+                                        }}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -197,6 +190,10 @@ export default function Index({
                                             )
                                         }
                                         options={numbers}
+                                        defaultValue={{
+                                            value: data.tunjangan_jabatan,
+                                            label: data.tunjangan_jabatan,
+                                        }}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -208,6 +205,10 @@ export default function Index({
                                     </label>
 
                                     <CreatableSelect
+                                        defaultValue={{
+                                            value: data.tunjangan_keluarga,
+                                            label: data.tunjangan_keluarga,
+                                        }}
                                         isClearable
                                         onChange={(selectedOption: any) =>
                                             setData(
@@ -243,6 +244,10 @@ export default function Index({
                                         Tunjangan Khusus
                                     </label>
                                     <CreatableSelect
+                                        defaultValue={{
+                                            value: data.tunjangan_khusus,
+                                            label: data.tunjangan_khusus,
+                                        }}
                                         isClearable
                                         onChange={(selectedOption: any) =>
                                             setData(
@@ -262,6 +267,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.tunjangan_lembur_dan_makan,
+                                            label: data.tunjangan_lembur_dan_makan,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "tunjangan_lembur_dan_makan",
@@ -280,6 +289,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.tunjangan_kelebihan_mengajar,
+                                            label: data.tunjangan_kelebihan_mengajar,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "tunjangan_kelebihan_mengajar",
@@ -298,6 +311,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.tunjangan_kesra,
+                                            label: data.tunjangan_kesra,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "tunjangan_kesra",
@@ -317,6 +334,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.potongan_pph21,
+                                            label: data.potongan_pph21,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "potongan_pph21",
@@ -335,6 +356,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.potongan_pinjaman_koperasi,
+                                            label: data.potongan_pinjaman_koperasi,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "potongan_pinjaman_koperasi",
@@ -353,6 +378,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.potongan_sumbangan_kyy,
+                                            label: data.potongan_sumbangan_kyy,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "potongan_sumbangan_kyy",
@@ -371,6 +400,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.potongan_simpanan_wajib,
+                                            label: data.potongan_simpanan_wajib,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "potongan_simpanan_wajib",
@@ -389,6 +422,10 @@ export default function Index({
                                         tenagakerjaan
                                     </label>
                                     <CreatableSelect
+                                        defaultValue={{
+                                            value: data.potongan_bpjs_kesehatan_dan_tenagakerjaan,
+                                            label: data.potongan_bpjs_kesehatan_dan_tenagakerjaan,
+                                        }}
                                         isClearable
                                         onChange={(selectedOption: any) =>
                                             setData(
@@ -408,6 +445,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.potongan_arisan,
+                                            label: data.potongan_arisan,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "potongan_arisan",
@@ -426,6 +467,10 @@ export default function Index({
                                     </label>
                                     <CreatableSelect
                                         isClearable
+                                        defaultValue={{
+                                            value: data.potongan_dll,
+                                            label: data.potongan_dll,
+                                        }}
                                         onChange={(selectedOption: any) =>
                                             setData(
                                                 "potongan_dll",

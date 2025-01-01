@@ -60,6 +60,7 @@ Route::get('/admin/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified', 'role:admin|pimpinan'])->name('admin.dashboard');
 
+
 Route::get('/user/dashboard', function () {
 
     $salaries = Salary::with('employee.user')->where("employee_id", auth()->user()->employee->id)->get()->map(function ($data) {
@@ -97,17 +98,17 @@ Route::middleware('auth')->group(function () {
         Route::delete('/admin/positions/{position}', [PositionController::class, 'destroy'])->name('admin.positions.destroy');
 
         Route::get('/admin/salaries', [AdminSalaryController::class, 'index'])->name('admin.salaries.index');
-        Route::get('/admin/salaries/employee/{employee}/date-of-salary/{dateOfSalary}', [AdminSalaryController::class, 'show'])->name('admin.salaries.show');
+
         Route::post('/admin/salaries/employee/{employee}/date-of-salary/{dateOfSalary}', [AdminSalaryController::class, 'store'])->name('admin.salaries.store');
 
 
-        Route::get('/admin/reports/{salary}/export', [AdminReportController::class, 'export'])->name('admin.reports.export');
 
         Route::get('/admin/reports/exports', [AdminReportController::class, 'exports'])->name('admin.reports.export');
     });
-
+    Route::get('/admin/salaries/employee/{employee}/date-of-salary/{dateOfSalary}', [AdminSalaryController::class, 'show'])->name('admin.salaries.show');
     Route::get('/admin/reports', [AdminReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/admin/reports/show', [AdminReportController::class, 'show'])->name('admin.reports.show');
 });
+Route::get('/admin/reports/{salary}/export', [AdminReportController::class, 'export'])->name('admin.reports.export');
 
 require __DIR__ . '/auth.php';

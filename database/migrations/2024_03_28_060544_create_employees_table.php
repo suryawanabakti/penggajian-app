@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->unsignedBigInteger('position_id')->references('id')->on('positions')->cascadeOnDelete();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('position_id')->nullable();
+            $table->foreign('position_id')->references('id')->on('positions');
             $table->string('code');
             $table->string('nik')->nullable()->unique();
             $table->string('nidn')->nullable()->unique();

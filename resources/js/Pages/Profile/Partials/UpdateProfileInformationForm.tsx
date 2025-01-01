@@ -66,11 +66,11 @@ export default function UpdateProfileInformation({
                 </div>
 
                 <div className="mb-3">
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Username" />
 
                     <TextInput
                         id="email"
-                        type="email"
+                        type="text"
                         className="mt-1 block w-full"
                         value={data.email}
                         onChange={(e) => setData("email", e.target.value)}

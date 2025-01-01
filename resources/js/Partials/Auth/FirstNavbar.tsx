@@ -2,6 +2,7 @@ import { Link } from "@inertiajs/react";
 import { PropsWithChildren, useState } from "react";
 import { IconBell } from "@tabler/icons-react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
+
 export default function FirstNavbar({
     user,
     showCollapseSecondNavbar,
@@ -26,7 +27,7 @@ export default function FirstNavbar({
                     <Link href="/dashboard">
                         <div className="d-flex justify-content-between">
                             <ApplicationLogo width="30" />{" "}
-                            <span className="mt-1 fw-bold ml-2">UNITAMA</span>
+                            <span className="mt-1 fw- ml-2">UNITAMA</span>
                         </div>
                     </Link>
                 </h1>
